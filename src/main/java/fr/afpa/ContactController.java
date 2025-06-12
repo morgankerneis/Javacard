@@ -3,7 +3,9 @@ package fr.afpa;
 import java.io.IOException;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 
 import javafx.collections.FXCollections;
@@ -79,13 +81,8 @@ public class ContactController {
     @FXML
     private Button btnSupprimer;
 
-    // button combobox
-
-    /**
-     * ComboBox permettant de choisir le genre du contact.
-     */
     @FXML
-    private ComboBox<Contact.Genre> comboboxGenre;
+    private MenuButton menuButtonGenre;
 
     @FXML
     private TextField prenomChampField;
@@ -118,8 +115,25 @@ public class ContactController {
     @FXML
     private TextField dateDeNaissanceChampField;
 
+
     @FXML
-    private ComboBox<String> comboExporter;
+private void handleGenreHomme(ActionEvent event) {
+    System.out.println("Genre sélectionné : Homme");
+}
+
+@FXML
+private void handleGenreFemme(ActionEvent event) {
+    System.out.println("Genre sélectionné : Femme");
+}
+
+@FXML
+private void handleGenreAutre(ActionEvent event) {
+    System.out.println("Genre sélectionné : Autre");
+}
+
+
+    @FXML
+    private MenuButton comboExporter;
 
     private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
@@ -138,9 +152,7 @@ public class ContactController {
         telPersoCol.setCellValueFactory(new PropertyValueFactory<>("telPerso"));
 
         // Lier la combo genre à l'enum
-        comboboxGenre.setItems(FXCollections.observableArrayList(Contact.Genre.values()));
-
-        comboExporter.setItems(FXCollections.observableArrayList(".csv", ".json", ".vcf"));
+     //   comboboxGenre.setItems(FXCollections.observableArrayList(Contact.Genre.values()));
 
         // Ajouter quelques contacts par défaut à la liste observable
         contacts.add(new Contact("Henri", "feru", "Nice"));
@@ -150,6 +162,14 @@ public class ContactController {
 
         // Afficher la liste dans la TableView
         contactTableview.setItems(contacts);
+
+        comboExporter.getItems().clear();
+
+        MenuItem csvItem = new MenuItem(".csv");
+        MenuItem jsonItem = new MenuItem(".json");
+        MenuItem vcfItem = new MenuItem(".vcf");
+
+        comboExporter.getItems().addAll(csvItem, jsonItem, vcfItem);
 
     }
 
@@ -203,7 +223,8 @@ public class ContactController {
         dateDeNaissanceChampField.clear();
         lienGitChampField.clear();
         adresseChampField.clear();
-        comboboxGenre.getSelectionModel().clearSelection();// ici méthode différente on efface juste la sélection.
+        // comboboxGenre.getSelectionModel().clearSelection();// ici méthode différente
+        // on efface juste la sélection.
 
     }
 

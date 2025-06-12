@@ -18,13 +18,9 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
- 
-
-
-         // Ajout du CSS
-  // Chargement du CSS avec le chemin correct
-   scene.getStylesheets().add(App.class.getResource("/fr/afpa/css/style.css").toExternalForm());
-
+        // Ajout du CSS
+        // Chargement du CSS avec le chemin correct
+        scene.getStylesheets().add(App.class.getResource("/fr/afpa/css/style.css").toExternalForm());
 
     }
 
