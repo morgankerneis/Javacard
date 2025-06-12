@@ -1,0 +1,223 @@
+/* Police globale et arrière-plan principal */
+
+/* définit un fond clair*/
+.root {
+    background-color: #f9fafb;          /* standard */
+    -fx-background-color: #f9fafb;     /* JavaFX */
+
+    font-family: "Segoe UI", Arial, sans-serif;      /* standard */
+    -fx-font-family: "Segoe UI", Arial, sans-serif;  /* JavaFX */
+}
+
+/* Titres principaux */
+/*Couleur de texte sombre mais pas totalement noire, pour un meilleur confort visuel.*/
+
+/*Taille standard pour un bon équilibre entre lisibilité et compacité. L'espacement vertical rend les labels plus aérés.*/
+.label {
+    -fx-text-fill: #333333;
+
+    font-size: 14px;            /* standard */
+    -fx-font-size: 14px;        /* JavaFX */
+
+    padding: 5px 0 5px 0;       /* standard */
+    -fx-padding: 5 0 5 0;       /* JavaFX */
+}
+
+/* Champs de saisie */
+.text-field {
+    background-color: #ffffff;          /* standard */
+    -fx-background-color: #ffffff;     /* JavaFX */
+
+    border-color: #d0d0d0;              /* standard */
+    -fx-border-color: #d0d0d0;          /* JavaFX */
+
+    border-radius: 5px;                 /* standard */
+    -fx-border-radius: 5;               /* JavaFX */
+
+    padding: 8px 12px;                  /* standard */
+    -fx-padding: 8 12;                  /* JavaFX */
+
+    font-size: 14px;                   /* standard */
+    -fx-font-size: 14px;               /* JavaFX */
+}
+.text-field:focused {
+    border-color: #4CAF50;             /* standard */
+    -fx-border-color: #4CAF50;         /* JavaFX */
+}
+
+/* ComboBox */
+.combo-box {
+    background-color: #ffffff;          /* standard */
+    -fx-background-color: #ffffff;     /* JavaFX */
+
+    border-color: #d0d0d0;              /* standard */
+    -fx-border-color: #d0d0d0;          /* JavaFX */
+
+    border-radius: 5px;                 /* standard */
+    -fx-border-radius: 5;               /* JavaFX */
+
+    padding: 8px 12px;                  /* standard */
+    -fx-padding: 8 12;                  /* JavaFX */
+
+    font-size: 14px;                   /* standard */
+    -fx-font-size: 14px;               /* JavaFX */
+}
+.combo-box:focused {
+    border-color: #4CAF50;             /* standard */
+    -fx-border-color: #4CAF50;         /* JavaFX */
+}
+
+/* TableView */
+.table-view {
+    background-color: #ffffff;          /* standard */
+    -fx-background-color: #ffffff;     /* JavaFX */
+
+    border-color: #cccccc;              /* standard */
+    -fx-border-color: #cccccc;          /* JavaFX */
+
+    /* Pas de propriété CSS standard équivalente pour table-cell-border-color */
+    -fx-table-cell-border-color: #e0e0e0;
+
+    padding: 5px;                      /* standard */
+    -fx-padding: 5;                   /* JavaFX */
+
+    font-size: 13px;                  /* standard */
+    -fx-font-size: 13px;              /* JavaFX */
+}
+.table-view .column-header-background {
+    background-color: #e8eaf6;          /* standard */
+    -fx-background-color: #e8eaf6;     /* JavaFX */
+}
+.table-view .column-header {
+    font-weight: bold;                 /* standard */
+    -fx-font-weight: bold;             /* JavaFX */
+
+    color: #333333;                   /* standard */
+    -fx-text-fill: #333333;           /* JavaFX */
+}
+.table-view .table-row-cell:filled:selected {
+    background-color: #c8e6c9;          /* standard */
+    -fx-background-color: #c8e6c9;     /* JavaFX */
+}
+
+/* Boutons génériques */
+.button {
+    background-color: #4CAF50;          /* standard */
+    -fx-background-color: #4CAF50;     /* JavaFX */
+
+    color: white;                      /* standard */
+    -fx-text-fill: white;              /* JavaFX */
+
+    font-weight: bold;                 /* standard */
+    -fx-font-weight: bold;             /* JavaFX */
+
+    border-radius: 5px;                /* standard */
+    -fx-background-radius: 5;          /* JavaFX */
+
+    cursor: pointer;                   /* standard */
+    -fx-cursor: hand;                  /* JavaFX */
+
+    padding: 8px 16px;                 /* standard */
+    -fx-padding: 8 16;                 /* JavaFX */
+
+    font-size: 14px;                  /* standard */
+    -fx-font-size: 14px;              /* JavaFX */
+
+    min-width: 120px;                 /* standard */
+    -fx-min-width: 120px;             /* JavaFX */
+    pref-width: 120px;                /* standard */
+    
+    max-width: 120px;                 /* standard */
+    -fx-max-width: 120px;             /* JavaFX */
+
+    min-height: 35px;                 /* standard */
+
+    pref-height: 35px;                /* standard */
+    -fx-pref-height: 35px;            /* JavaFX */
+    max-height: 35px;                 /* standard */
+    -fx-max-height: 35px;             /* JavaFX */
+}
+.button:hover {
+    background-color: #45a049;          /* standard */
+    -fx-background-color: #45a049;     /* JavaFX */
+}
+.button:disabled {
+    font-size: 14px;                  /* standard */
+    -fx-font-size: 14px;              /* JavaFX */
+}
+.button:focused {
+    border-color: transparent;        /* standard */
+    -fx-border-color: transparent;    /* JavaFX */
+}
+
+/* Bouton de suppression spécifique */
+#btnSupprimer {
+    background-color: #e57373;          /* standard */
+    -fx-background-color: #e57373;     /* JavaFX */
+
+    color: white;                      /* standard */
+    -fx-text-fill: white;              /* JavaFX */
+
+    min-width: 100px;                 /* standard */
+    -fx-min-width: 100px;             /* JavaFX */
+    pref-width: 100px;                /* standard */
+    -fx-pref-width: 100px;            /* JavaFX */
+    max-width: 100px;                 /* standard */
+    -fx-max-width: 100px;             /* JavaFX */
+
+    min-height: 100px;                /* standard */
+    -fx-min-height: 100px;            /* JavaFX */
+    pref-height: 100px;               /* standard */
+    -fx-pref-height: 100px;           /* JavaFX */
+    max-height: 100px;                /* standard */
+    -fx-max-height: 100px;            /* JavaFX */
+
+    background-radius: 50px;          /* standard */
+    border-radius: 50px;              /* standard */
+    -fx-background-radius: 50px;      /* JavaFX */
+    -fx-border-radius: 50px;          /* JavaFX */
+
+    alignment: center;                /* standard */
+    -fx-alignment: center;            /* JavaFX */
+
+    font-size: 12px;                  /* standard */
+    -fx-font-size: 12px;              /* JavaFX */
+
+    font-weight: bold;                /* standard */
+    -fx-font-weight: bold;            /* JavaFX */
+
+    wrap-text: true;                 /* standard */
+    -fx-wrap-text: true;             /* JavaFX */
+
+    text-alignment: center;          /* standard */
+    -fx-text-alignment: center;      /* JavaFX */
+}
+#btnSupprimer:hover {
+    background-color: #ef5350;          /* standard */
+    -fx-background-color: #ef5350;     /* JavaFX */
+}
+
+/* Layouts */
+.grid-pane {
+    -fx-hgap: 15px;
+    -fx-vgap: 12px;
+
+    padding: 20px;                     /* standard */
+    -fx-padding: 20px;                 /* JavaFX */
+}
+
+.hbox {
+    spacing: 15px;                    /* standard */
+    -fx-spacing: 15px;                /* JavaFX */
+
+    padding: 15px 0 0 0;             /* standard */
+    -fx-padding: 15 0 0 0;           /* JavaFX */
+}
+
+.vbox {
+    spacing: 25px;                    /* standard */
+    -fx-spacing: 25px;                /* JavaFX */
+
+    padding: 20px;                   /* standard */
+    -fx-padding: 20px;               /* JavaFX */
+}

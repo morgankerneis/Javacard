@@ -53,6 +53,11 @@ public class Contact {
         this.lienGithub = new SimpleStringProperty(lienGithub);
     }
 
+    // Constructeur simplifié utilisé dans ContactController
+public Contact(String nom, String prenom, String ville) {
+    this(nom, prenom, ville, "", Genre.Autre, "", "", "", "", "", "", "", "");
+}
+
     // Getters and setters (pour toString et logique métier)
 
     public void setNom(String nom) {

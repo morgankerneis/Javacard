@@ -14,146 +14,150 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.ContactController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label prefHeight="18.0" prefWidth="270.0" text="FORMULAIRE : liste de contacts" />
+            <Label text="FORMULAIRE : liste de contacts">
+               <font>
+                  <Font size="32.0" />
+               </font></Label>
             <HBox VBox.vgrow="ALWAYS">
                <children>
                   <VBox prefHeight="400.0" prefWidth="505.0" HBox.hgrow="ALWAYS">
                      <children>
                         <BorderPane>
                            <center>
-                              <TableView fx:id="contactTableview" prefHeight="463.0" prefWidth="400.0">
+                              <TableView fx:id="contactTableview">
                                 <columns>
-                                  <TableColumn prefWidth="78.39999008178711" text="Prénom" />
+                                  <TableColumn fx:id="prenomCol" prefWidth="78.39999008178711" text="Prénom" />
                                   <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-                                    <TableColumn minWidth="0.0" prefWidth="50.399993896484375" text="Nom" />
+                                    <TableColumn fx:id="nomCol" minWidth="0.0" prefWidth="50.399993896484375" text="Nom" />
                                     <TableColumn minWidth="0.0" prefWidth="0.0" text="C4" />
                                     <TableColumn minWidth="0.0" prefWidth="0.0" text="C5" />
-                                    <TableColumn prefWidth="106.39999389648438" text="Tél. personnel" />
+                                    <TableColumn fx:id="telPersoCol" prefWidth="106.39999389648438" text="Tél. personnel" />
                                     <TableColumn minWidth="0.0" prefWidth="0.0" text="C7" />
                                     <TableColumn minWidth="0.0" prefWidth="0.0" text="C8" />
                                     <TableColumn minWidth="0.0" prefWidth="0.0" text="C9" />
-                                    <TableColumn prefWidth="96.80000305175781" text="Adresse" />
-                                    <TableColumn minWidth="0.0" prefWidth="68.79998779296875" text="Ville" />
+                                    <TableColumn fx:id="adresseCol" prefWidth="96.80000305175781" text="Adresse" />
+                                    <TableColumn fx:id="villeCol" minWidth="0.0" prefWidth="68.79998779296875" text="Ville" />
                                 </columns>
                               </TableView>
                            </center>
                            <top>
-                              <Label prefHeight="24.0" prefWidth="322.0" text="Résultat de recherche :" BorderPane.alignment="TOP_LEFT">
+                              <Label fx:id="BtnResRecherche" prefHeight="24.0" prefWidth="322.0" text="Résultat de recherche :" BorderPane.alignment="TOP_LEFT">
                                  <graphic>
-                                    <Button mnemonicParsing="false" text="Désactiver" textFill="#17c73a" />
+                                    <Button fx:id="BtnDesactiver" alignment="TOP_LEFT" mnemonicParsing="false" stylesheets="@css/style.css" text="Désactiver" textFill="#17c73a" />
                                  </graphic>
                               </Label>
                            </top>
                         </BorderPane>
-                        <ComboBox promptText="Exporter" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <ComboBox fx:id="comboExporter" promptText="Choix format" />
+                              <Button mnemonicParsing="false" text="Exporter" />
+                           </children>
+                           <padding>
+                              <Insets top="50.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </VBox>
-                  <BorderPane prefWidth="546.0" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <center>
-                        <AnchorPane>
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
+                  <AnchorPane>
+                     <children>
+                        <VBox spacing="15.0">
                            <children>
-                              <VBox style="-fx-background-color: light grey;">
+                              <HBox>
                                  <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" text="Filtrer" textFill="#222322" />
-                                       </children>
-                                    </HBox>
-                                    <GridPane prefHeight="429.0" prefWidth="490.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="301.0" minWidth="121.00006866455078" prefWidth="121.00006866455078" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="424.9999313354492" minWidth="10.0" prefWidth="424.9999313354492" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label prefHeight="18.0" prefWidth="151.0" text="Nom : *" GridPane.rowIndex="1">
-                                             <GridPane.margin>
-                                                <Insets />
-                                             </GridPane.margin>
-                                          </Label>
-                                          <Label layoutX="10.0" layoutY="16.0" prefHeight="22.0" prefWidth="126.0" text="Tél. personnel : *" GridPane.rowIndex="2">
-                                             <GridPane.margin>
-                                                <Insets />
-                                             </GridPane.margin>
-                                          </Label>
-                                          <Label text="Prénom : *" />
-                                          <TextField GridPane.columnIndex="1" />
-                                          <TextField layoutX="161.0" layoutY="18.0" prefHeight="46.0" prefWidth="364.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField layoutX="161.0" layoutY="61.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <ComboBox promptText="Genre :" GridPane.rowIndex="2">
-                                             <GridPane.margin>
-                                                <Insets top="700.0" />
-                                             </GridPane.margin>
-                                          </ComboBox>
-                                          <Label prefHeight="18.0" prefWidth="120.0" text="Adresse : *" GridPane.rowIndex="3" />
-                                          <Label prefHeight="23.0" prefWidth="122.0" text="Ville : *" GridPane.rowIndex="4" />
-                                          <Label prefHeight="26.0" prefWidth="130.0" text="Email : *" GridPane.rowIndex="5" />
-                                          <Label prefHeight="20.0" prefWidth="137.0" text="Pseudo :" GridPane.rowIndex="6" />
-                                          <Label prefHeight="24.0" prefWidth="129.0" text="Date de naissance :" GridPane.rowIndex="7" />
-                                          <Label prefHeight="2.0" prefWidth="127.0" text="Tél. pro :" GridPane.rowIndex="8" />
-                                          <Label text="Lien Github :" GridPane.rowIndex="9" />
-                                          <Label prefHeight="42.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <Label GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets top="50.0" />
-                                       </VBox.margin>
-                                    </GridPane>
-                                    <HBox alignment="TOP_RIGHT" spacing="20.0">
-                                       <children>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" text="Ajouter" />
-                                          <Button mnemonicParsing="false" text="Effacer" />
-                                          <Button mnemonicParsing="false" text="Modifier" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets top="100.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox alignment="BOTTOM_RIGHT" prefHeight="95.0" prefWidth="546.0">
-                                       <children>
-                                          <Button contentDisplay="RIGHT" mnemonicParsing="false" text="Supprimer" textFill="#d90a4f" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
+                                    <Button fx:id="BtnFiltrer" mnemonicParsing="false" text="Filtrer" textFill="#020718" />
+                                 </children>
+                              </HBox>
+                            <GridPane fx:id="formGrid" hgap="20.0" vgap="30.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="ALWAYS" maxWidth="301.0" minWidth="121.00006866455078" prefWidth="121.00006866455078" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="424.9999313354492" minWidth="10.0" prefWidth="424.9999313354492" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                  <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                  <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="20.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="nomLabel" prefHeight="18.0" prefWidth="151.0" text="Nom : *" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label fx:id="telPersoLabel" layoutX="10.0" layoutY="16.0" prefHeight="22.0" prefWidth="126.0" text="Tél. personnel : *" textFill="#322929" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label fx:id="prenomLabel" text="Prénom : *" />
+                                    <TextField fx:id="prenomChampField" text="mmm" GridPane.columnIndex="1" />
+                                    <TextField fx:id="nomChampField" layoutX="161.0" layoutY="18.0" prefHeight="46.0" prefWidth="364.0" text="mmmm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="telPersoChampField" layoutX="161.0" layoutY="61.0" text="02951245" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ComboBox fx:id="comboboxGenre" promptText="Genre :" GridPane.rowIndex="10">
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </ComboBox>
+                                    <Label fx:id="adresseLabel" prefHeight="18.0" prefWidth="120.0" text="Adresse : *" GridPane.rowIndex="3" />
+                                    <Label fx:id="villeLabel" prefHeight="23.0" prefWidth="122.0" text="Ville : *" GridPane.rowIndex="4" />
+                                    <Label fx:id="emailLabel" prefHeight="26.0" prefWidth="130.0" text="Email : *" GridPane.rowIndex="5" />
+                                    <Label fx:id="pseudoLabel" prefHeight="20.0" prefWidth="137.0" text="Pseudo :" GridPane.rowIndex="6" />
+                                    <Label fx:id="dateDeNaissanceLabel" prefHeight="24.0" prefWidth="129.0" text="Date de naissance :" GridPane.rowIndex="7" />
+                                    <Label fx:id="telproLabel" prefHeight="2.0" prefWidth="127.0" text="Tél. pro :" GridPane.rowIndex="8" />
+                                    <Label fx:id="lienGitLabel" text="Lien Github :" GridPane.rowIndex="9" />
+                                    <Label prefHeight="42.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="adresseChampField" text="44, Bd des myo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="villeChampField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="emailChampField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="pseudoChampField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <TextField fx:id="dateDeNaissanceChampField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <TextField fx:id="telProChampField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <TextField fx:id="lienGitChampField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </GridPane>
+                              <HBox alignment="TOP_RIGHT" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="btnAjouter" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#ajouter" text="Ajouter" />
+                                    <Button fx:id="btnEffacer" mnemonicParsing="false" onAction="#effacer" text="Effacer" />
+                                    <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="BOTTOM_RIGHT">
+                                 <children>
+                                    <Button fx:id="btnSupprimer" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" textFill="#d90a4f" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <padding>
-                                    <Insets left="10.0" />
+                                    <Insets top="10.0" />
                                  </padding>
-                              </VBox>
+                              </HBox>
                            </children>
-                        </AnchorPane>
-                     </center>
-                  </BorderPane>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" />
+                           <padding>
+                              <Insets left="10.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
                </children>
             </HBox>
          </children>
