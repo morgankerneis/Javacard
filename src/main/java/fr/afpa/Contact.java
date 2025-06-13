@@ -8,7 +8,22 @@ import javafx.beans.property.StringProperty;
 public class Contact {
 
     public enum Genre {
-        Homme, Femme, Autre
+        Homme, Femme, Autre;
+
+        @Override // Cette méthode est là pour remplacer une méthode déjà existante dans une
+                  // classe parente.
+        // Vérifie que je ne me suis pas trompé."
+
+        public String toString() {
+            switch (this) {
+                case Homme:
+                    return "Homme";
+                case Femme:
+                    return "Femme";
+                default:
+                    return "Autre";
+            }
+        }
     }
 
     private StringProperty nom;// nom est un objet spécial avec StringProperty
@@ -54,9 +69,10 @@ public class Contact {
     }
 
     // Constructeur simplifié utilisé dans ContactController
-public Contact(String nom, String prenom, String ville) {
-    this(nom, prenom, ville, "", Genre.Autre, "", "", "", "", "", "", "", "");
-}
+    public Contact(String nom, String prenom, Genre genre, String adresse, String telPerso, String email,
+            String adressePostale, String ville) {
+        this(nom, prenom, ville, "", genre, "", adresse, telPerso, "", email, "", adressePostale, "");
+    }
 
     // Getters and setters (pour toString et logique métier)
 

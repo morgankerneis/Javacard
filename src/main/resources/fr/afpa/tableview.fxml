@@ -44,7 +44,12 @@
                                     <TableColumn minWidth="0.0" prefWidth="0.0" text="C9" />
                                     <TableColumn fx:id="adresseCol" prefWidth="96.80000305175781" text="Adresse" />
                                     <TableColumn fx:id="villeCol" minWidth="0.0" prefWidth="68.79998779296875" text="Ville" />
+                                    <TableColumn fx:id="emailCol" minWidth="0.0" prefWidth="68.79998779296875" text="Email" />
+                                    <TableColumn fx:id="genreCol" minWidth="0.0" prefWidth="68.79998779296875" text="Genre" />
                                 </columns>
+                                 <padding>
+                                    <Insets top="20.0" />
+                                 </padding>
                               </TableView>
                            </center>
                            <top>
