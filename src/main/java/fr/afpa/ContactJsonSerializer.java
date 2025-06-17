@@ -1,11 +1,8 @@
 package fr.afpa;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.stage.FileChooser;
@@ -32,5 +29,10 @@ public class ContactJsonSerializer implements Serializer<Contact> {
         if (selectedFile != null) {
             saveList(selectedFile.getAbsolutePath(), contacts);
         }
+    }
+
+    @Override
+    public void save(String filePath, Contact Object) {
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 }
