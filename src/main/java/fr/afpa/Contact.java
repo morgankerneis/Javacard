@@ -13,7 +13,22 @@ import javafx.beans.property.StringProperty;
 public class Contact extends Object implements Serializable {
 
     public enum Genre {
-        HOMME, FEMME, AUTRE
+        HOMME, FEMME, AUTRE;
+
+        @Override // Cette méthode est là pour remplacer une méthode déjà existante dans une
+                  // classe parente.
+        // Vérifie que je ne me suis pas trompé."
+
+        public String toString() {
+            switch (this) {
+                case HOMME:
+                    return "Homme";
+                case FEMME:
+                    return "Femme";
+                default:
+                    return "Autre";
+            }
+        }
     }
 
     private transient StringProperty nom;// nom est un objet spécial avec StringProperty
@@ -55,6 +70,12 @@ public class Contact extends Object implements Serializable {
         this.departement = new SimpleStringProperty(departement);
         this.codePostal = new SimpleStringProperty(codePostal);
         this.lienGithub = new SimpleStringProperty(lienGithub);
+    }
+
+    // Constructeur simplifié utilisé dans ContactController
+    public Contact(String nom, String prenom, Genre genre, String adresse, String telPerso, String email,
+            String adressePostale, String ville) {
+        this(nom, prenom, ville, "", genre, "", adresse, telPerso, "", email, "", adressePostale, "");
     }
 
     // Getters and setters (pour toString et logique métier)

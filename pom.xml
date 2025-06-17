@@ -84,9 +84,6 @@
                         <!-- Default configuration for running -->
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
-                        <configuration>
-                            <mainClass>afpa.checkbox.App</mainClass>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
