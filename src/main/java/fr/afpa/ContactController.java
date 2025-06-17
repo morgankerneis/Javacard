@@ -137,19 +137,19 @@ public class ContactController {
 
     @FXML
     private void handleGenreHomme(ActionEvent event) {
-        genre = Contact.Genre.Homme;
+        genre = Contact.Genre.HOMME;
         System.out.println("Genre sélectionné : Homme");
     }
 
     @FXML
     private void handleGenreFemme(ActionEvent event) {
-        genre = Contact.Genre.Femme;
+        genre = Contact.Genre.FEMME;
         System.out.println("Genre sélectionné : Femme");
     }
 
     @FXML
     private void handleGenreAutre(ActionEvent event) {
-        genre = Contact.Genre.Autre;
+        genre = Contact.Genre.AUTRE;
         System.out.println("Genre sélectionné : Autre");
     }
 
@@ -195,20 +195,23 @@ public class ContactController {
         genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
 
         // on peut maintenant ajouter les contacts :
+        // String nom, String prenom, Genre genre, String adresse, String telPerso,
+        // String email,
+        // String adressePostale, String ville
         contacts.add(new Contact(
-                "Henri",
-                "Feru",
-                Contact.Genre.Homme,
-                "12 rue de la République",
-                "0600000000",
-                "henri.feru@email.com",
-                "Nice",
-                "Nice"));
+            "Henri",
+            "Feru",
+            Contact.Genre.HOMME,
+            "12 rue de la République",
+            "0600000000",
+            "henri.feru@email.com",
+            "06100",
+            "Nice"));
 
         contacts.add(new Contact(
                 "Geos",
                 "Pierre",
-                Contact.Genre.Homme,
+                Contact.Genre.HOMME,
                 "5 avenue des Champs",
                 "0611111111",
                 "geos.pierre@email.com",
@@ -218,7 +221,7 @@ public class ContactController {
         contacts.add(new Contact(
                 "Armelle",
                 "Baba",
-                Contact.Genre.Femme,
+                Contact.Genre.FEMME,
                 "45 boulevard de la Liberté",
                 "0622222222",
                 "armelle.baba@email.com",
