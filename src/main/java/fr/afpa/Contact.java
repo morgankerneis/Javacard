@@ -1,32 +1,36 @@
 package fr.afpa;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Contact {
+public class Contact extends Object implements Serializable {
 
     public enum Genre {
-        Homme, Femme, Autre
+        HOMME, FEMME, AUTRE
     }
 
-    private StringProperty nom;// nom est un objet spécial avec StringProperty
+    private transient StringProperty nom;// nom est un objet spécial avec StringProperty
     // qui gère une chaîne et notifie quand elle change.
 
-    private StringProperty prenom;
-
-    private StringProperty ville;
-    private StringProperty dateNaissance;
-    private ObjectProperty<Genre> genre;
-    private StringProperty pseudo;
-    private StringProperty adresse;
-    private StringProperty telPerso;
-    private StringProperty telPro;
-    private StringProperty email;
-    private StringProperty departement;
-    private StringProperty codePostal;
-    private StringProperty lienGithub;
+    private transient StringProperty prenom;
+    private transient StringProperty ville;
+    private transient StringProperty dateNaissance;
+    private transient ObjectProperty<Genre> genre;
+    private transient StringProperty pseudo;
+    private transient StringProperty adresse;
+    private transient StringProperty telPerso;
+    private transient StringProperty telPro;
+    private transient StringProperty email;
+    private transient StringProperty departement;
+    private transient StringProperty codePostal;
+    private transient StringProperty lienGithub;
 
     // Constructeur initialisant les propriétés
     public Contact(String nom, String prenom, String ville, String dateNaissance,
@@ -60,7 +64,7 @@ public class Contact {
     }
 
     public String getNom() {
-        return nom.get();
+        return nom.getValue();
     }
 
     public String getPrenom() {
@@ -177,5 +181,44 @@ public class Contact {
                 getTelPerso(),
                 getEmail());
 
+    }
+
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+
+        stream.defaultWriteObject();
+
+        stream.writeUTF(getNom());
+        stream.writeUTF(getPrenom());
+        stream.writeUTF(getVille());
+        stream.writeUTF(getDateNaissance());
+        stream.writeObject(getGenre());
+        stream.writeUTF(getPseudo());
+        stream.writeUTF(getAdresse());
+        stream.writeUTF(getTelPerso());
+        stream.writeUTF(getTelPro());
+        stream.writeUTF(getEmail());
+        stream.writeUTF(getDepartement());
+        stream.writeUTF(getCodePostal());
+        stream.writeUTF(getLienGithub());
+    }
+
+    private void readObject(ObjectInputStream stream) throws IOException,
+            ClassNotFoundException {
+
+        stream.defaultReadObject();
+
+        this.nom = new SimpleStringProperty(stream.readUTF());
+        this.prenom = new SimpleStringProperty(stream.readUTF());
+        this.ville = new SimpleStringProperty(stream.readUTF());
+        this.dateNaissance = new SimpleStringProperty(stream.readUTF());
+        this.genre = new SimpleObjectProperty<>((Genre) stream.readObject());
+        this.pseudo = new SimpleStringProperty(stream.readUTF());
+        this.adresse = new SimpleStringProperty(stream.readUTF());
+        this.telPerso = new SimpleStringProperty(stream.readUTF());
+        this.telPro = new SimpleStringProperty(stream.readUTF());
+        this.email = new SimpleStringProperty(stream.readUTF());
+        this.departement = new SimpleStringProperty(stream.readUTF());
+        this.codePostal = new SimpleStringProperty(stream.readUTF());
+        this.lienGithub = new SimpleStringProperty(stream.readUTF());
     }
 }
