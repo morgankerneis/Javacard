@@ -75,4 +75,20 @@ public class AppTest {
         System.out.println(contacts2);
         assertEquals(contacts.size(), contacts2.size());
     }
+
+    @Test
+    public void shouldExportFileInJsonFormat() throws IOException, ClassNotFoundException {
+        Contact contact = new Contact("Dampierre", "Eric", "Saint-Sernin-sur-rance", "155bc", Genre.HOMME, "", "",
+                "", "", "", "", "", "");
+        Contact contact2 = new Contact("Dampierre", "Isabella de rossigni", "Saint-Sernin-sur-rance", "155bc",
+                Genre.HOMME, "", "",
+                "", "", "", "", "", "");
+        List<Contact> contacts = new ArrayList<>();
+        contacts.add(contact);
+        contacts.add(contact2);
+
+        ContactJsonSerializer serializer = new ContactJsonSerializer();
+        serializer.saveList("src/test/java/fr/afpa/test.json", contacts);
+        assertTrue(true);
+    }
 }

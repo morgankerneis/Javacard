@@ -5,10 +5,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
+@JsonPropertyOrder({
+        "nom", "prenom", "ville", "dateNaissance", "genre", "pseudo", "adresse", "telPerso", "telPro", "email",
+        "departement", "codePostal", "lienGithub"
+})
 
 public class Contact extends Object implements Serializable {
 
