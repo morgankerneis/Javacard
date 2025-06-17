@@ -39,11 +39,14 @@ public class ContactController {
         App.setRoot("secondary");
     }
 
+    // Lien entre un élément de la vue (GridPane) et le contrôleur pour permettre
+    // l'accès en Java
     @FXML
     private GridPane formGrid; // ajoute dynamiquement des éléments par exemple
 
     /**
      * Colonne affichant les attributs des contacts dans la TableView.
+     * Colonnes d'une TableView : ici, nomCol affichera le nom d'un contact.
      */
 
     @FXML
@@ -67,6 +70,7 @@ public class ContactController {
     private TableColumn<Contact, String> genreCol;
 
     // Buttons pour ajouter, effacer, modifier, supprimer(CRUD)
+    // Boutons liés au FXML. Ils appellent des méthodes via les @FXML.
 
     @FXML
     private Button btnAjouter;
@@ -74,17 +78,24 @@ public class ContactController {
     @FXML
     private Button btnEffacer;
 
-    @FXML
-    private Button btnModifier;
+    // @FXML
+    // private Button btnModifier;
 
     @FXML
     private Button btnSupprimer;
 
+    // Menu déroulant pour choisir un genre (Homme, Femme, Autre).
     @FXML
     private MenuButton comboboxGenre;
 
     /**
      * Champ texte pour saisir le nom du contact.
+     * Champs de saisie pour les différents attributs d’un contact.
+     * 
+     * java
+     * Copier
+     * Modifier
+     * 
      */
 
     @FXML
@@ -117,8 +128,12 @@ public class ContactController {
     @FXML
     private TextField dateDeNaissanceChampField;
 
-    // pour gérer le genre dans les actions ensuite
+    // pour gérer le genre dans les actions ensuite; Stocke temporairement le genre
+    // sélectionné.
     private Contact.Genre genre = null;
+
+    // Définissent la valeur du genre lorsque l’utilisateur clique sur un des choix
+    // du MenuButton.
 
     @FXML
     private void handleGenreHomme(ActionEvent event) {
@@ -139,10 +154,12 @@ public class ContactController {
     }
 
     // Voici la méthode clearFieldStyle à ajouter dans la classe
+    // Enlève la classe CSS "error" si elle est présente.
     private void clearFieldStyle(TextField field) {
         field.getStyleClass().remove("error");
     }
 
+    // Ajoute une surbrillance (rouge ou autre) en cas d'erreur de saisie.
     private void highlightField(TextField field) {
         if (!field.getStyleClass().contains("error")) {
             field.getStyleClass().add("error");
@@ -166,6 +183,9 @@ public class ContactController {
         // classe `Contact`.
         // - JavaFX utilise **la réflexion** pour appeler `getNom()` sur chaque objet de
         // la liste.
+
+        // Associe la colonne nomCol à l'attribut nom de l'objet Contact.
+
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenomCol.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         villeCol.setCellValueFactory(new PropertyValueFactory<>("ville"));
@@ -207,14 +227,40 @@ public class ContactController {
 
         // Afficher la liste dans la TableView
         contactTableview.setItems(contacts);
+        // Attache un gestionnaire de clics à la tableview
 
+        contactTableview.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) { // simple clic (ou 2 pour double-clic)
+                Contact contactSelectionne = contactTableview.getSelectionModel().getSelectedItem();
+                if (contactSelectionne != null) {
+                    contactEnCoursEdition = contactSelectionne;
+
+                    // Remplir les champs du formulaire
+                    nomChampField.setText(contactEnCoursEdition.getNom());
+                    prenomChampField.setText(contactEnCoursEdition.getPrenom());
+                    villeChampField.setText(contactEnCoursEdition.getVille());
+                    telPersoChampField.setText(contactEnCoursEdition.getTelPerso());
+                    adresseChampField.setText(contactEnCoursEdition.getAdresse());
+                    emailChampField.setText(contactEnCoursEdition.getEmail());
+
+                    genre = contactEnCoursEdition.getGenre();
+                    comboboxGenre.setText(genre.name()); // ⚠️ si c’est un MenuButton
+
+                    System.out.println("Contact chargé pour modification : " + contactEnCoursEdition.getNom());
+                }
+            }
+        });
+
+        // Vide les anciens choix du menu "Exporter".
         comboExporter.getItems().clear();
 
-        MenuItem csvItem = new MenuItem(".csv");
+        MenuItem csvItem = new MenuItem(".csv");// Crée un nouvel élément de menu (ligne dans le menu déroulant) avec le
+                                                // texte .csv.
         MenuItem jsonItem = new MenuItem(".json");
         MenuItem vcfItem = new MenuItem(".vcf");
 
-        comboExporter.getItems().addAll(csvItem, jsonItem, vcfItem);
+        comboExporter.getItems().addAll(csvItem, jsonItem, vcfItem);// Ajoute les trois éléments .csv, .json et .vcf
+                                                                    // dans le menu déroulant comboExporter.
 
     }
 
@@ -223,6 +269,15 @@ public class ContactController {
      * Crée un nouveau contact à partir des champs saisis et l'ajoute à la liste.
      * 
      * @param event événement de clic sur le bouton Ajouter
+     *              Récupère le contenu des champs
+     *              Valide les champs (vérifie qu’ils ne sont pas vides)
+     *              Si tout est correct, crée un nouvel objet Contact et l’ajoute à
+     *              la liste observable contacts.
+     * 
+     *              java
+     *              Copier
+     *              Modifier
+     * 
      */
 
     @FXML
@@ -238,7 +293,19 @@ public class ContactController {
         String email = emailChampField.getText().trim();
         String adressePostale = adresse; // même champ ici, si pas séparé
 
+        // Elle supprime simplement la classe "error" (souvent définie dans le fichier
+        // CSS pour changer la couleur du champ).
+
+        // Enlever le style d'erreur sur tous les champs au début (reset)
+        clearFieldStyle(nomChampField);
+        clearFieldStyle(prenomChampField);
+        clearFieldStyle(villeChampField);
+        clearFieldStyle(telPersoChampField);
+        clearFieldStyle(adresseChampField);
         clearFieldStyle(emailChampField);
+
+        // Aussi enlever le style d'erreur sur le MenuButton genre si nécessaire
+        comboboxGenre.getStyleClass().remove("error");
 
         // Vérification des champs obligatoires
         if (nom.isEmpty()) {
@@ -274,7 +341,7 @@ public class ContactController {
 
             isValid = false;
             if (!comboboxGenre.getStyleClass().contains("error")) {// si error n'est pas déjà dans la liste
-                comboboxGenre.getStyleClass().add("error");// on ajoute
+                comboboxGenre.getStyleClass().add("error");// on ajoute l'error définit dans le ficheir css
             }
 
         } else {
@@ -297,10 +364,10 @@ public class ContactController {
             alert.showAndWait();
         }
 
-        if (genre == null) {
-            isValid = false;
+        // if (genre == null) {
+        // isValid = false;
 
-        }
+        // }
 
         if (!isValid) {
             javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
@@ -322,20 +389,36 @@ public class ContactController {
             alert.showAndWait();
             return;
         }
+        // ======= MODIFICATION ou AJOUT ==========
+        if (contactEnCoursEdition != null) {
+            // MODIFIER un contact existant
+            contactEnCoursEdition.setNom(nom);
+            contactEnCoursEdition.setPrenom(prenom);
+            contactEnCoursEdition.setVille(ville);
+            contactEnCoursEdition.setTelPerso(telPerso);
+            contactEnCoursEdition.setAdresse(adresse);
+            contactEnCoursEdition.setEmail(email);
+            contactEnCoursEdition.setGenre(genre);
 
-        // Création du contact
-        Contact nouveauContact = new Contact(nom, prenom, genre, adresse, telPerso, email, ville, adressePostale);
+            contactTableview.refresh(); // 🔄 Forcer mise à jour
+            System.out.println("Contact modifié : " + nom + " " + prenom);
+            contactEnCoursEdition = null;
+        } else {
 
-        // ajouter à la liste observable
-        // Action dans le code Effet dans la TableView
-        // contacts.add(...) ✅ Ajoute une ligne
-        // contacts.remove(...) ✅ Supprime une ligne
-        // contacts.clear() ✅ Vide la table
-        // contacts.set(0, unContactModifé) ✅ Met à jour la ligne 0
-        contacts.add(nouveauContact);
+            // Création du contact
+            Contact nouveauContact = new Contact(nom, prenom, genre, adresse, telPerso, email, ville, adressePostale);
 
-        System.out.println("Contact ajouté : " + nom + " " + prenom);
-        effacer(null); // Efface le formulaire
+            // ajouter à la liste observable
+            // Action dans le code Effet dans la TableView
+            // contacts.add(...) ✅ Ajoute une ligne
+            // contacts.remove(...) ✅ Supprime une ligne
+            // contacts.clear() ✅ Vide la table
+            // contacts.set(0, unContactModifé) ✅ Met à jour la ligne 0
+            contacts.add(nouveauContact);
+
+            System.out.println("Contact ajouté : " + nom + " " + prenom);
+            effacer(null); // Efface le formulaire
+        }
     }
 
     /**
@@ -363,8 +446,15 @@ public class ContactController {
 
         comboboxGenre.setText("Sélectionner un genre");// texte par défaut
 
-        // Réinitialisation du style du bouton MenuButton (supprimer surbrillance)
+        // Réinitialisation du style du bouton MenuButton (supprimer contour champ de
+        // couleur)
         nomChampField.setStyle(""); // ça "clear" le style CSS appliqué
+        nomChampField.setStyle("");
+        prenomChampField.setStyle("");
+        villeChampField.setStyle("");
+        telPersoChampField.setStyle("");
+        adresseChampField.setStyle("");
+        emailChampField.setStyle("");
 
     }
 
@@ -375,9 +465,44 @@ public class ContactController {
      * @param event événement de clic sur le bouton Modifier
      */
 
+    // @FXML
+    // private void modifier(ActionEvent event) {
+
+    // // Récupérer le contact sélectionné dans la TableView
+    // Contact contactSelectionne =
+    // contactTableview.getSelectionModel().getSelectedItem();
+
+    // if (contactSelectionne != null) {
+    // // Remplir les champs du formulaire avec les données du contact
+    // nomChampField.setText(contactSelectionne.getNom());
+    // prenomChampField.setText(contactSelectionne.getPrenom());
+    // villeChampField.setText(contactSelectionne.getVille());
+    // telPersoChampField.setText(contactSelectionne.getTelPerso());
+    // adresseChampField.setText(contactSelectionne.getAdresse());
+    // emailChampField.setText(contactSelectionne.getEmail());
+    // comboboxGenre.setText(genre.name());
+
+    // }
+    // System.out.println("Fonction modifier");
+    // }
+
+    private Contact contactEnCoursEdition = null;
+
     @FXML
     private void modifier(ActionEvent event) {
-        System.out.println("Fonction modifier");
+
+        if (contactEnCoursEdition == null) {
+            // Aucun contact sélectionné pour modifier
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                    javafx.scene.control.Alert.AlertType.WARNING);
+            alert.setTitle("Modification impossible");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un contact à modifier avant de cliquer sur Modifier.");
+            alert.showAndWait();
+            return; // On sort sans appeler ajouter()
+        }
+        // Sinon, on appelle ajouter() qui fera la validation et la modification
+        ajouter(event);
     }
 
     /**
@@ -403,8 +528,18 @@ public class ContactController {
 
         String email = emailChampField.getText().trim();// enlève espace
         // ------------------------REGEX----------------------------------------------------------------
-        // Regex simple pour vérifier la présence d'un '@', un point, et un nom
-        // d'hébergeur
+        /*
+         * Début de la chaîne (obligatoire, rien avant)
+         * [a-zA-Z0-9._%+-]+ Nom d'utilisateur (avant le @)
+         * ➤ Lettres majuscules/minuscules, chiffres, points, tirets, underscores, etc.
+         * 
+         * @ Le caractère arobase (obligatoire, séparateur entre utilisateur et domaine)
+         * [a-zA-Z0-9.-]+ Nom de domaine (ex: gmail, yahoo, etc.)
+         * ➤ Lettres, chiffres, tirets, points autorisés
+         * \\. Le point . (échappé car c’est un caractère spécial en regex)
+         * [a-zA-Z]{2,6} Extension du domaine (ex: com, fr, org...)
+         * 
+         */
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
         boolean isValid = email.matches(regex);
@@ -419,6 +554,7 @@ public class ContactController {
         }
 
         return isValid;
+
     }
 
     @FXML
