@@ -8,9 +8,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
@@ -20,6 +17,11 @@ public class App extends Application {
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.show();
+
+        // Ajout du CSS
+        // Chargement du CSS avec le chemin correct
+        scene.getStylesheets().add(App.class.getResource("/fr/afpa/css/style.css").toExternalForm());
+
     }
 
     static void setRoot(String fxml) throws IOException {
