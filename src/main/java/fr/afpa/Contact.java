@@ -12,6 +12,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+//lorsque l’objet sera converti en JSON, les propriétés apparaîtront dans cet ordre exact :
+
 @JsonPropertyOrder({
         "nom", "prenom", "ville", "dateNaissance", "genre", "pseudo", "adresse", "telPerso", "telPro", "email",
         "departement", "codePostal", "lienGithub"
@@ -211,15 +213,33 @@ public class Contact extends Object implements Serializable {
 
     }
 
-    private void writeObject(ObjectOutputStream stream) throws IOException {
+    // méthode personnalisée utilisée dans le cadre de la sérialisation Java,
+    // c’est-à-dire pour écrire un objet dans un flux binaire (par exemple pour
+    // l’enregistrer dans un fichier).
+
+    private void writeObject(ObjectOutputStream stream) throws IOException {// ObjectOutputStream est le flux vers
+                                                                            // lequel l’objet est écrit.
+        // stream.defaultWriteObject();
+        // Cette ligne demande à Java d’écrire automatiquement les champs standards
+        // (déclarés Serializable) selon le mécanisme normal.
+
+        // Autrement dit : tout ce qui est non-transient et non-statique est sérialisé
+        // automatiquement ici.
 
         stream.defaultWriteObject();
 
-        stream.writeUTF(getNom());
+        // Pour plus de contrôle : on choisit exactement quels champs sont sérialisés et
+        // comment.
+
+        // Pour garantir la compatibilité entre différentes versions d’une classe.
+
+        // Pour pouvoir adapter la lecture ensuite avec readObject().
+
+        stream.writeUTF(getNom());// écrit une chaine de caractère
         stream.writeUTF(getPrenom());
         stream.writeUTF(getVille());
         stream.writeUTF(getDateNaissance());
-        stream.writeObject(getGenre());
+        stream.writeObject(getGenre());// écrit un objet
         stream.writeUTF(getPseudo());
         stream.writeUTF(getAdresse());
         stream.writeUTF(getTelPerso());

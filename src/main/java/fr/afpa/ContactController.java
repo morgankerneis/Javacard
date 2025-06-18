@@ -2,6 +2,7 @@ package fr.afpa;
 
 import java.io.IOException;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.MenuButton;
@@ -221,8 +222,6 @@ public class ContactController {
                 "06100",
                 "Nice"));
 
-
-                
         contacts.add(new Contact(
                 "Henri",
                 "Feru",
@@ -372,11 +371,6 @@ public class ContactController {
             alert.showAndWait();
         }
 
-        // if (genre == null) {
-        // isValid = false;
-
-        // }
-
         if (!isValid) {
             javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
                     javafx.scene.control.Alert.AlertType.ERROR);
@@ -398,35 +392,46 @@ public class ContactController {
             return;
         }
         // ======= MODIFICATION ou AJOUT ==========
+        // if (contactEnCoursEdition != null) {
+        // // MODIFIER un contact existant
+        // contactEnCoursEdition.setNom(nom);
+        // contactEnCoursEdition.setPrenom(prenom);
+        // contactEnCoursEdition.setVille(ville);
+        // contactEnCoursEdition.setTelPerso(telPerso);
+        // contactEnCoursEdition.setAdresse(adresse);
+        // contactEnCoursEdition.setEmail(email);
+        // contactEnCoursEdition.setGenre(genre);
+
+        // contactTableview.refresh(); // 🔄 Forcer mise à jour
+        // System.out.println("Contact modifié : " + nom + " " + prenom);
+        // contactEnCoursEdition = null;
+        // } else {
+
+        // Bloquer ajout si on est en mode modification
         if (contactEnCoursEdition != null) {
-            // MODIFIER un contact existant
-            contactEnCoursEdition.setNom(nom);
-            contactEnCoursEdition.setPrenom(prenom);
-            contactEnCoursEdition.setVille(ville);
-            contactEnCoursEdition.setTelPerso(telPerso);
-            contactEnCoursEdition.setAdresse(adresse);
-            contactEnCoursEdition.setEmail(email);
-            contactEnCoursEdition.setGenre(genre);
-
-            contactTableview.refresh(); // 🔄 Forcer mise à jour
-            System.out.println("Contact modifié : " + nom + " " + prenom);
-            contactEnCoursEdition = null;
-        } else {
-
-            // Création du contact
-            Contact nouveauContact = new Contact(nom, prenom, genre, adresse, telPerso, email, ville, adressePostale);
-
-            // ajouter à la liste observable
-            // Action dans le code Effet dans la TableView
-            // contacts.add(...) ✅ Ajoute une ligne
-            // contacts.remove(...) ✅ Supprime une ligne
-            // contacts.clear() ✅ Vide la table
-            // contacts.set(0, unContactModifé) ✅ Met à jour la ligne 0
-            contacts.add(nouveauContact);
-
-            System.out.println("Contact ajouté : " + nom + " " + prenom);
-            effacer(null); // Efface le formulaire
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Attention");
+            alert.setHeaderText(null);
+            alert.setContentText(
+                    "Vous modifiez un contact. Cliquez sur Modifier pour enregistrer, ou Effacer pour réinitialiser.");
+            alert.showAndWait();
+            return; // SORTIE TOTALE DE LA MÉTHODE, pas d'ajout possible
         }
+
+        // Création du contact
+        Contact nouveauContact = new Contact(nom, prenom, genre, adresse, telPerso, email, ville, adressePostale);
+
+        // ajouter à la liste observable
+        // Action dans le code Effet dans la TableView
+        // contacts.add(...) ✅ Ajoute une ligne
+        // contacts.remove(...) ✅ Supprime une ligne
+        // contacts.clear() ✅ Vide la table
+        // contacts.set(0, unContactModifé) ✅ Met à jour la ligne 0
+        contacts.add(nouveauContact);
+
+        System.out.println("Contact ajouté : " + nom + " " + prenom);
+
+        effacer(null);
     }
 
     /**
@@ -464,6 +469,7 @@ public class ContactController {
         adresseChampField.setStyle("");
         emailChampField.setStyle("");
 
+        contactEnCoursEdition = null;
     }
 
     /**
@@ -473,44 +479,41 @@ public class ContactController {
      * @param event événement de clic sur le bouton Modifier
      */
 
-    // @FXML
-    // private void modifier(ActionEvent event) {
-
-    // // Récupérer le contact sélectionné dans la TableView
-    // Contact contactSelectionne =
-    // contactTableview.getSelectionModel().getSelectedItem();
-
-    // if (contactSelectionne != null) {
-    // // Remplir les champs du formulaire avec les données du contact
-    // nomChampField.setText(contactSelectionne.getNom());
-    // prenomChampField.setText(contactSelectionne.getPrenom());
-    // villeChampField.setText(contactSelectionne.getVille());
-    // telPersoChampField.setText(contactSelectionne.getTelPerso());
-    // adresseChampField.setText(contactSelectionne.getAdresse());
-    // emailChampField.setText(contactSelectionne.getEmail());
-    // comboboxGenre.setText(genre.name());
-
-    // }
-    // System.out.println("Fonction modifier");
-    // }
-
     private Contact contactEnCoursEdition = null;
 
     @FXML
     private void modifier(ActionEvent event) {
-
         if (contactEnCoursEdition == null) {
-            // Aucun contact sélectionné pour modifier
-            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
-                    javafx.scene.control.Alert.AlertType.WARNING);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Modification impossible");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez sélectionner un contact à modifier avant de cliquer sur Modifier.");
+            alert.setContentText("Veuillez sélectionner un contact à modifier.");
             alert.showAndWait();
-            return; // On sort sans appeler ajouter()
+            return;
         }
-        // Sinon, on appelle ajouter() qui fera la validation et la modification
-        ajouter(event);
+
+        // Récupérer les nouvelles valeurs des champs
+        String nom = nomChampField.getText().trim();
+        String prenom = prenomChampField.getText().trim();
+        String ville = villeChampField.getText().trim();
+        String telPerso = telPersoChampField.getText().trim();
+        String adresse = adresseChampField.getText().trim();
+        String email = emailChampField.getText().trim();
+
+        // Met à jour l'objet contact
+        contactEnCoursEdition.setNom(nom);
+        contactEnCoursEdition.setPrenom(prenom);
+        contactEnCoursEdition.setVille(ville);
+        contactEnCoursEdition.setTelPerso(telPerso);
+        contactEnCoursEdition.setAdresse(adresse);
+        contactEnCoursEdition.setEmail(email);
+        contactEnCoursEdition.setGenre(genre);
+
+        // Rafraîchit la TableView pour voir les changements
+        // met à jour l’affichage.
+
+        contactTableview.refresh();
+
     }
 
     /**
